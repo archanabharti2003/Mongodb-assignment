@@ -1,0 +1,212 @@
+Q1...
+
+TASK 1:-
+
+test> use PWSKILLS
+switched to db PWSKILLS
+PWSKILLS> show dbs
+PWSKILLS   88.00 KiB
+SchoolDB  112.00 KiB
+admin      40.00 KiB
+config     84.00 KiB
+local      72.00 KiB
+mongo_db   40.00 KiB
+newdb      48.00 KiB
+PWSKILLS>
+
+TASK-2:-
+
+PWSKILLS> db.createCollection("Employees")
+{ ok: 1 }
+PWSKILLS> show collections
+Employees
+
+TASK-3:-
+
+PWSKILLS> var e1={
+... name:"mohan",
+... email:'mohan@gmail.com',
+... address:'XYZ,sector2'}
+
+PWSKILLS> var e2={
+... name:'Akshit',
+... email:'akshit@gmail.com',
+... address:'gurgao,chandigarh'}
+
+PWSKILLS> db.Employee.insertMany([e1,e2])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('65e9872c83fd860b6fc74a84'),
+    '1': ObjectId('65e9872c83fd860b6fc74a85')
+  }
+}
+
+TASK-4:-
+PWSKILLS> db.Employee.find()
+[
+  {
+    _id: ObjectId('65e9872c83fd860b6fc74a84'),
+    name: 'mohan',
+    email: 'mohan@gmail.com',
+    address: 'XYZ,sector2'
+  },
+  {
+    _id: ObjectId('65e9872c83fd860b6fc74a85'),
+    name: 'Akshit',
+    email: 'akshit@gmail.com',
+    address: 'gurgao,chandigarh'
+  }
+]
+
+TASK-5:-
+PWSKILLS> db.Employee.drop()
+true
+
+TASK-6:-
+
+PWSKILLS> db.database.drop()
+true
+
+
+Q2...
+db.Customers.insertOne({
+  name: "Jane",
+  email: "jane@email.com",
+  address: "noida , Delhi",
+  prdoduct_purchased:60
+});
+
+
+Q3...
+PWSKILLS> db.Customers.find()
+[
+  {
+    _id: ObjectId('65e9891183fd860b6fc74a86'),
+    name: 'Jane',
+    email: 'jane@email.com',
+    address: 'noida , Delhi',
+    product_purchased:60
+  }
+]
+
+Q4.
+
+var customerNameToUpdate = "Akshit";
+var newAddress = "patna,Bihar";
+
+db.Customers.updateOne(
+  { name: customerNameToUpdate },
+  { $set: { address: newAddress } }
+)
+
+
+
+Q5....
+PWSKILLS> db.Customer.find({product_purchased:{$gt:60}})
+
+
+Q6....
+PWSKILLS> db.Customer.remove({name:'Akshit'})
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 1 }
+
+Q7...PWSKILLS> use SchoolDB
+switched to db SchoolDB
+SchoolDB> show dbs
+PWSKILLS  88.00 KiB
+admin     40.00 KiB
+config    96.00 KiB
+local     72.00 KiB
+mongo_db  40.00 KiB
+newdb     48.00 KiB
+SchoolDB>
+
+Q8....
+SchoolDB> db.Students.insert({
+... name:'Rohan',
+... age:'16',
+... grade:'A+'})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65e9534bf2cf4a89deae191f') }
+}
+
+Q9...SchoolDB> db.Students.find({$or: [{age: {$gt: 20}},{grade:10}] })
+[
+  {
+    _id: ObjectId('65e954c6f2cf4a89deae1920'),
+    name: 'Rohit',
+    age: '20',
+    grade: 10
+  }
+]
+
+Q10....SchoolDB> db.Students.update({name:'Rohit'},{$set:{grade:20}})
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+SchoolDB> db.Students.find()
+[
+  {
+    _id: ObjectId('65e9534bf2cf4a89deae191f'),
+    name: 'Rohan',
+    age: '16',
+    grade: 'A+'
+  },
+  {
+    _id: ObjectId('65e954c6f2cf4a89deae1920'),
+    name: 'Rohit',
+    age: '20',
+    grade: 20
+  },
+  {
+    _id: ObjectId('65e954d9f2cf4a89deae1921'),
+    name: 'Akshit',
+    age: '18',
+    grade: 30
+  }
+]
+
+
+Q11...SchoolDB> db.Teachers.insert({
+... name:"Vishwa sir",
+... subject:"development",
+... experience:5}
+... )
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65e95911f2cf4a89deae1922') }
+}
+SchoolDB>
+
+
+
+
+Q12..SchoolDB> db.Teachers.find({ $or: [{ subject: "development" }, { experience: { $gt: 5 } }] })
+[
+  {
+    _id: ObjectId('65e95911f2cf4a89deae1922'),
+    name: 'Vishwa sir',
+    subject: 'development',
+    experience: 5
+  }
+]
+
+
+Q13...SchoolDB> db.Teachers.update({name:"Rohan sie"},{$set:{experience:15
+}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+SchoolDB>
